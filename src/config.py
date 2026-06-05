@@ -14,8 +14,8 @@ MODELS_DIR.mkdir(parents=True, exist_ok=True)
 REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-RAW_DATA_PATH = RAW_DATA_DIR / "df_geo.csv"
-PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "krisha_ads_processed.csv"
+RAW_DATA_PATH = RAW_DATA_DIR / "df_public.csv"
+PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "ads_processed.csv"
 
 MODEL_PATH = MODELS_DIR / "catboost_price_per_m2.cbm"
 FEATURES_PATH = MODELS_DIR / "features.json"

@@ -12,9 +12,9 @@ env/
 .ipynb_checkpoints/
 
 # data
-data/raw/*
 data/interim/*
 data/processed/*
+data/local/*
 
 # models
 models/*.cbm
