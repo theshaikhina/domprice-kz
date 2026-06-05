@@ -1,0 +1,33 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+
+# jupyter
+.ipynb_checkpoints/
+
+# data
+data/raw/*
+data/interim/*
+data/processed/*
+
+# models
+models/*.cbm
+models/*.pkl
+models/*.joblib
+
+# mlflow
+mlruns/
+
+# reports
+reports/*.csv
+reports/*.json
+
+# system
+.DS_Store
+Thumbs.db
