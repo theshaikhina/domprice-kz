@@ -14,6 +14,7 @@ env/
 # data
 data/interim/*
 data/processed/*
+data/local/*
 
 # models
 models/*.cbm
