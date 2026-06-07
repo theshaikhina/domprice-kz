@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
 
+from typing import Optional
+
 from src.config import (
     MODEL_PATH,
     FEATURES_PATH,
@@ -173,7 +175,7 @@ def get_districts_by_city(city: str) -> list[str]:
 
 def get_residential_complexes(
     city: str,
-    district: str | None = None,
+    district: Optional[str] = None,
 ) -> list[str]:
     df = load_reference_data()
 

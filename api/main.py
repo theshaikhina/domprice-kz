@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from typing import Optional
 
 from api.schemas import ApartmentInput
 from src.predict import (
@@ -7,6 +8,7 @@ from src.predict import (
     get_districts_by_city,
     get_residential_complexes,
 )
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI(
@@ -15,6 +17,13 @@ app = FastAPI(
     version="1.0.0",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():
@@ -45,7 +54,7 @@ def get_districts(city: str):
 
 
 @app.get("/options/residential-complexes")
-def get_complexes(city: str, district: str | None = None):
+def get_complexes(city: str, district: Optional[str] = None):
     return {
         "city": city,
         "district": district,
