@@ -1,0 +1,30 @@
+.header {
+  margin-bottom: 2rem;
+  text-align: left;
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    
+    .logo-icon {
+      font-size: 2rem;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, $text-primary 0%, $accent 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+  
+  .subtitle {
+    color: $text-secondary;
+    font-size: 0.875rem;
+  }
+}

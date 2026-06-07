@@ -1,0 +1,132 @@
+.result-placeholder {
+  @include flex-center;
+  min-height: 400px;
+  text-align: center;
+  color: $text-secondary;
+}
+
+.result-content {
+  .price-main {
+    text-align: center;
+    margin-bottom: 2rem;
+    
+    .price-label {
+      font-size: 0.875rem;
+      color: $text-secondary;
+      margin-bottom: 0.5rem;
+    }
+    
+    .price-value {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: $accent;
+      
+      @include tablet {
+        font-size: 4rem;
+      }
+    }
+  }
+  
+  .price-per-meter {
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
+    margin-bottom: 1.5rem;
+    
+    .label {
+      font-size: 0.875rem;
+      color: $text-secondary;
+    }
+    
+    .value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+.range-card {
+  background: rgba($accent, 0.1);
+  border: 1px solid rgba($accent, 0.2);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  
+  .range-title {
+    font-size: 0.875rem;
+    color: $text-secondary;
+    margin-bottom: 0.75rem;
+  }
+  
+  .range-values {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    
+    .range-min,
+    .range-max {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    
+    .range-min {
+      color: $text-secondary;
+    }
+    
+    .range-max {
+      color: $accent;
+    }
+  }
+  
+  .range-bar {
+    position: relative;
+    height: 4px;
+    background: $border;
+    border-radius: 2px;
+    margin-bottom: 0.75rem;
+    
+    .range-fill {
+      position: absolute;
+      height: 100%;
+      background: $accent;
+      border-radius: 2px;
+    }
+  }
+  
+  .range-percent {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: $text-secondary;
+    
+    .negative {
+      color: $error;
+    }
+    
+    .positive {
+      color: $accent;
+    }
+  }
+}
+
+.info-card {
+  background: rgba($border, 0.3);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  
+  .info-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .info-text {
+    font-size: 0.75rem;
+    color: $text-secondary;
+    line-height: 1.5;
+  }
+}

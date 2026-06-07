@@ -1,0 +1,31 @@
+.app-container {
+  min-height: 100vh;
+  padding: 2rem;
+  
+  @include tablet {
+    padding: 1.5rem;
+  }
+  
+  @include mobile {
+    padding: 1rem;
+  }
+}
+
+.header {
+  max-width: 1400px;
+  margin: 0 auto 2rem auto;
+  text-align: left;
+}
+
+.main-layout {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 1.5rem;
+  
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

@@ -1,0 +1,28 @@
+Структура папок
+Серийный номер тома: 86AB-4563
+C:.
+|   .gitignore
+|   AGENTS.md
+|   CLAUDE.md
+|   eslint.config.mjs
+|   next-env.d.ts
+|   next.config.ts
+|   package-lock.json
+|   package.json
+|   postcss.config.mjs
+|   README.md
+|   save-structure.bat
+|   structure.txt
+|   tsconfig.json          
++---app
+|       globals.scss
+|       layout.tsx
+|       page.tsx
+|       
++---components
+|   +---forms
+|   \---ui
++---hooks
++---lib
++---public
+\---types

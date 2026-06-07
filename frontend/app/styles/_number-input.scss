@@ -1,0 +1,94 @@
+.number-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.number-input-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $text-secondary;
+  
+  .required {
+    color: $accent;
+    margin-left: 0.25rem;
+  }
+}
+
+.number-input-wrapper {
+  position: relative;
+}
+
+.number-input {
+  width: 100%;
+  background: $bg-main;
+  border: 1px solid $border;
+  border-radius: 0.5rem;
+  padding: 0.625rem 3rem 0.625rem 0.75rem;
+  color: $text-primary;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  -moz-appearance: textfield;
+  
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    box-shadow: 0 0 0 2px rgba($accent, 0.1);
+  }
+  
+  &:hover:not(:focus) {
+    border-color: $text-secondary;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.number-input-buttons {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 0.25rem;
+}
+
+.number-input-btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: 0.375rem;
+  color: $accent;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:hover:not(:disabled) {
+    background: $accent;
+    color: white;
+    border-color: $accent;
+  }
+  
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
