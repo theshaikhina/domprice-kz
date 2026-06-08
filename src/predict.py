@@ -135,9 +135,17 @@ def predict_price(data: dict) -> dict:
     pred_price_per_m2 = np.expm1(pred_log)
     pred_price = pred_price_per_m2 * data["area"]
 
+    mape = 11.2
+
+    min_price = pred_price * (1 - mape / 100)
+    max_price = pred_price * (1 + mape / 100)
+
     return {
-        "predicted_price_per_m2": round(float(pred_price_per_m2), 2),
-        "predicted_price": round(float(pred_price), 2),
+        "price": round(float(pred_price), 2),
+        "price_per_m2": round(float(pred_price_per_m2), 2),
+        "min_price": round(float(min_price), 2),
+        "max_price": round(float(max_price), 2),
+        "mape": mape,
     }
 
 
