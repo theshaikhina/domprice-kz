@@ -10,13 +10,39 @@
 }
 
 .card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+
+  svg {
+    color: $accent;
+    flex-shrink: 0;
+  }
 }
 
 .card-subtitle {
   color: $text-secondary;
   font-size: 0.875rem;
   margin-bottom: 1.5rem;
+}
+
+.icon-box {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba($accent, 0.08);
+
+  color: $accent;
+
+  flex-shrink: 0;
 }

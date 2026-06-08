@@ -85,7 +85,7 @@
 
 .submit-btn {
   width: 100%;
-  background: $accent;
+  background: $button-bg;
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -95,16 +95,16 @@
   cursor: pointer;
   transition: all 0.2s;
   margin-top: 1rem;
-  
+
   &:hover:not(:disabled) {
-    background: $accent-hover;
+    background: $button-bg-hover;
     transform: translateY(-1px);
   }
-  
+
   &:active:not(:disabled) {
     transform: translateY(0);
   }
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
