@@ -201,7 +201,7 @@ def get_residential_complexes(
         .tolist()
     )
 
-    return replace_unknown_for_display(values, unknown_value="Другой")
+    return replace_unknown_for_display(values, unknown_value="Другой ЖК")
 
 
 def replace_unknown_for_display(
@@ -215,5 +215,9 @@ def replace_unknown_for_display(
             result.append(unknown_value)
         else:
             result.append(value)
+
+    if unknown_value in result:
+        result = [value for value in result if value != unknown_value]
+        result.append(unknown_value)
 
     return result
