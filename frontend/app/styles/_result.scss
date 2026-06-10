@@ -1,0 +1,286 @@
+.result-placeholder {
+  @include flex-center;
+  min-height: 400px;
+  text-align: center;
+  color: $text-secondary;
+}
+
+.result-content {
+  .price-main {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    
+    .price-label {
+      font-size: 1rem;
+      color: $text-secondary;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .price-value {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: $accent;
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba($accent, 0.3) 20%, 
+        $accent 50%, 
+        rgba($accent, 0.3) 80%, 
+        transparent 100%);
+      border-radius: 2px;
+      z-index: 1;
+    }
+    
+    &::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140%;          
+  height: 100%;       
+  background: radial-gradient(ellipse at center bottom, 
+    rgba($accent, 0.5) 0%,    // было 0.3, ярче
+    rgba($accent, 0.2) 30%,   // было 0.1
+    transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+}
+    
+    @include tablet {
+      &::after {
+        bottom: -8px;
+      }
+      
+      &::before {
+        width: 50%;
+        height: 70px;
+      }
+    }
+    
+    @include mobile {
+      &::after {
+        bottom: -6px;
+        height: 1px;
+      }
+      
+      &::before {
+        width: 60%;
+        height: 50px;
+        filter: blur(10px);
+      }
+      
+      .price-value {
+        font-size: 2.5rem;
+      }
+    }
+  }
+  
+  .price-per-meter {
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    
+    .label {
+      font-size: 1rem;
+      color: $text-secondary;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    
+    .value {
+      font-size: 2.5rem;     
+      font-weight: 600;       
+      color: $accent;
+      
+      @include mobile {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+.range-card {
+  background: radial-gradient(
+  circle at top left,
+  rgba($accent, 0.12) 0%,
+  rgba($accent, 0.04) 20%,
+  rgba($bg-main, 1) 60%
+);
+  border: 1px solid rgba($accent, 0.25);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(4px);
+  
+  .range-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    
+    svg {
+      stroke: $accent;
+      flex-shrink: 0;
+      
+      @include mobile {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  
+  .range-title {
+    font-size: 1rem;
+    text-align: center;
+    color: $text-secondary;
+    margin-bottom: 0;
+    
+    @include mobile {
+      font-size: 0.875rem;
+    }
+  }
+  
+  .range-values {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+    
+    .range-min,
+    .range-max {
+      font-size: 2rem; 
+      font-weight: 600;   
+      color: $accent;
+      
+      @include mobile {
+        font-size: 1.25rem;
+      }
+    }
+    
+    .range-dash {
+      color: $accent;     
+      font-size: 2rem;   
+      font-weight: 600;
+      
+      @include mobile {
+        font-size: 1.25rem;
+      }
+    }
+  }
+  
+  .range-bar {
+    position: relative;
+    height: 2px;
+    background: transparent;
+    border-radius: 2px;
+    margin-bottom: 0.75rem;
+    
+    .range-fill {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba($accent, 0.3) 20%, 
+        $accent 50%, 
+        rgba($accent, 0.3) 80%, 
+        transparent 100%);
+      border-radius: 2px;
+    }
+  }
+  
+  .range-percent {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: $text-secondary;
+    margin-bottom: 0.75rem;
+    
+    .negative {
+      color: $text-secondary;
+    }
+    
+    .positive {
+      color: $text-secondary;
+    }
+    
+    @include mobile {
+      font-size: 0.75rem;
+    }
+  }
+  
+  .range-note {
+    text-align: center;
+    font-size: 0.7rem;
+    color: $text-secondary;
+    opacity: 0.7;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba($accent, 0.2);
+  }
+}
+
+.info-card {
+  background: linear-gradient(135deg, rgba($accent, 0.06) 0%, rgba($bg-main, 0.95) 100%);
+  border: 1px solid rgba($accent, 0.15);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  
+  .info-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    
+    .icon-box {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba($accent, 0.1);
+      border-radius: 0.5rem;
+      
+      svg {
+        stroke: $accent;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+  
+  .info-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: $text-primary;
+  }
+  
+  .info-text {
+    font-size: 0.75rem;
+    color: $text-secondary;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+}

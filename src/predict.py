@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
 
+from typing import Optional, List
+
 from src.config import (
     MODEL_PATH,
     FEATURES_PATH,
@@ -135,9 +137,17 @@ def predict_price(data: dict) -> dict:
     pred_price_per_m2 = np.expm1(pred_log)
     pred_price = pred_price_per_m2 * data["area"]
 
+    mape = 11.2
+
+    min_price = pred_price * (1 - mape / 100)
+    max_price = pred_price * (1 + mape / 100)
+
     return {
-        "predicted_price_per_m2": round(float(pred_price_per_m2), 2),
-        "predicted_price": round(float(pred_price), 2),
+        "price": round(float(pred_price), 2),
+        "price_per_m2": round(float(pred_price_per_m2), 2),
+        "min_price": round(float(min_price), 2),
+        "max_price": round(float(max_price), 2),
+        "mape": mape,
     }
 
 
@@ -173,8 +183,8 @@ def get_districts_by_city(city: str) -> list[str]:
 
 def get_residential_complexes(
     city: str,
-    district: str | None = None,
-) -> list[str]:
+    district: Optional[str] = None,
+) -> List[str]:
     df = load_reference_data()
 
     district = convert_display_value(district) if district else None
@@ -193,7 +203,7 @@ def get_residential_complexes(
         .tolist()
     )
 
-    return replace_unknown_for_display(values, unknown_value="Другой")
+    return replace_unknown_for_display(values, unknown_value="Другой ЖК")
 
 
 def replace_unknown_for_display(
@@ -207,5 +217,9 @@ def replace_unknown_for_display(
             result.append(unknown_value)
         else:
             result.append(value)
+
+    if unknown_value in result:
+        result = [value for value in result if value != unknown_value]
+        result.append(unknown_value)
 
     return result
