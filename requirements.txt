@@ -1,5 +1,5 @@
-﻿pandas==3.0.3
-numpy==2.4.6
+﻿numpy==2.4.6
+pandas==3.0.3
 scikit-learn==1.8.0
 catboost==1.2.10
 fastapi==0.136.3
