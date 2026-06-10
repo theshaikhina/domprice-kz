@@ -7,3 +7,4 @@ uvicorn==0.48.0
 pydantic==2.13.4
 mlflow==3.13.0
 geopy==2.4.1
+
