@@ -16,7 +16,6 @@ data/interim/*
 data/local/*
 
 # models
-models/*.cbm
 models/*.pkl
 models/*.joblib
 
