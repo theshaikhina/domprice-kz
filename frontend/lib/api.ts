@@ -1,6 +1,6 @@
 import { ApartmentFeatures, PredictionResponse } from '@/types/apartment';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://domprice-kz-production.up.railway.app';
 
 const formatOptionLabel = (value: string): string => {
   if (!value || value === 'unknown') return 'Другое';
