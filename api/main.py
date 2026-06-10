@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from typing import Optional, List
 from api.schemas import ApartmentInput
 from src.predict import (
     predict_price,
@@ -54,7 +54,8 @@ def get_districts(city: str):
 
 
 @app.get("/options/residential-complexes")
-def get_complexes(city: str, district: str | None = None):
+def get_complexes(city: str, district: Optional[str] = None
+):
     return {
         "city": city,
         "district": district,
