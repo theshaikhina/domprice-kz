@@ -151,40 +151,97 @@ def predict_price(data: dict) -> dict:
     }
 
 
-def get_unique_values(column: str) -> list[str]:
+def make_options(
+    df: pd.DataFrame,
+    value_column: str,
+    label_column: str,
+    unknown_label: str = "Другое",
+) -> list[dict]:
+    if label_column not in df.columns:
+        label_column = value_column
+
+    if value_column == label_column:
+        subset = df[[value_column]].dropna().drop_duplicates()
+        subset[value_column] = subset[value_column].astype(str)
+        subset = subset.sort_values(value_column)
+
+        options = []
+
+        for value in subset[value_column]:
+            label = unknown_label if value == "unknown" else value
+
+            options.append({
+                "label": label,
+                "value": value,
+            })
+
+        return options
+
+    subset = df[[value_column, label_column]].dropna().drop_duplicates()
+
+    subset[value_column] = subset[value_column].astype(str)
+    subset[label_column] = subset[label_column].astype(str)
+
+    subset = subset.sort_values(label_column)
+
+    options = []
+
+    for _, row in subset.iterrows():
+        value = row[value_column]
+        label = row[label_column]
+
+        if value == "unknown":
+            label = unknown_label
+
+        options.append({
+            "label": label,
+            "value": value,
+        })
+
+    return options
+
+
+def get_unique_values(
+    value_column: str,
+    label_column: Optional[str] = None,
+    unknown_label: str = "Другое",
+) -> list[dict]:
     df = load_reference_data()
 
-    values = (
-        df[column]
-        .dropna()
-        .astype(str)
-        .sort_values()
-        .unique()
-        .tolist()
+    if label_column is None:
+        label_column = value_column
+
+    return make_options(
+        df=df,
+        value_column=value_column,
+        label_column=label_column,
+        unknown_label=unknown_label,
     )
 
-    return replace_unknown_for_display(values)
 
-
-def get_districts_by_city(city: str) -> list[str]:
+def get_districts_by_city(
+    city: str,
+    value_column: str = "district",
+    label_column: str = "district",
+) -> list[dict]:
     df = load_reference_data()
 
-    values = (
-        df[df["city"] == city]["district"]
-        .dropna()
-        .astype(str)
-        .sort_values()
-        .unique()
-        .tolist()
-    )
+    subset = df[df["city"] == city]
 
-    return replace_unknown_for_display(values, unknown_value="Другой район")
+    return make_options(
+        df=subset,
+        value_column=value_column,
+        label_column=label_column,
+        unknown_label="Другой район",
+    )
 
 
 def get_residential_complexes(
     city: str,
     district: Optional[str] = None,
-) -> List[str]:
+    value_column: str = "residential_complex",
+    label_column: str = "residential_complex",
+) -> List[dict]:
     df = load_reference_data()
 
     district = convert_display_value(district) if district else None
@@ -194,32 +251,9 @@ def get_residential_complexes(
     if district is not None:
         subset = subset[subset["district"] == district]
 
-    values = (
-        subset["residential_complex"]
-        .dropna()
-        .astype(str)
-        .sort_values()
-        .unique()
-        .tolist()
+    return make_options(
+        df=subset,
+        value_column=value_column,
+        label_column=label_column,
+        unknown_label="Другой ЖК",
     )
-
-    return replace_unknown_for_display(values, unknown_value="Другой ЖК")
-
-
-def replace_unknown_for_display(
-    values: list[str],
-    unknown_value: str = "Другое",
-) -> list[str]:
-    result = []
-
-    for value in values:
-        if value == "unknown":
-            result.append(unknown_value)
-        else:
-            result.append(value)
-
-    if unknown_value in result:
-        result = [value for value in result if value != unknown_value]
-        result.append(unknown_value)
-
-    return result
