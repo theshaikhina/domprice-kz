@@ -1,11 +1,19 @@
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
   
   @include mobile {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
+}
+
+.form-left-column,
+.form-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .form-group {
