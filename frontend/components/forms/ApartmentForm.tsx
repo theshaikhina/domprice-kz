@@ -27,19 +27,19 @@ export const ApartmentForm = ({ onSubmit, isLoading }: ApartmentFormProps) => {
   } = useFormData();
 
   const [formData, setFormData] = useState<ApartmentFeatures>({
-  city: '',
-  district: '',
-  residential_complex: '',
-  house_type: '',
-  condition: '',
-  bathroom: '',
-  rooms: null,
-  area: null,
-  floor: null,
-  total_floors: null,
-  ceiling_height: null,
-  year_built: null,
-});
+    city: '',
+    district: '',
+    residential_complex: '',
+    house_type: '',
+    condition: '',
+    bathroom: '',
+    rooms: null,
+    area: null,
+    floor: null,
+    total_floors: null,
+    ceiling_height: null,
+    year_built: null,
+  });
 
   useEffect(() => {
     if (formData.city) {
@@ -87,8 +87,8 @@ export const ApartmentForm = ({ onSubmit, isLoading }: ApartmentFormProps) => {
     
     const isAllSelectsFilled = requiredFields.every(field => formData[field] !== '');
     const isAllNumbersValid = numberFields.every(field => {
-      const value = formData[field] as number;
-      return value > 0;
+      const value = formData[field] as number | null;
+      return value !== null && value > 0;
     });
     
     if (!isAllSelectsFilled || !isAllNumbersValid) {
@@ -102,124 +102,130 @@ export const ApartmentForm = ({ onSubmit, isLoading }: ApartmentFormProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-grid">
-        <Select
-          label="Город"
-          options={cities}
-          value={formData.city}
-          onChange={(e) => handleSelectChange('city', e.target.value)}
-          required
-          disabled={isLoadingCities}
-        />
+        {/* Левая колонка - Селекты */}
+        <div className="form-left-column">
+          <Select
+            label="Город"
+            options={cities}
+            value={formData.city}
+            onChange={(e) => handleSelectChange('city', e.target.value)}
+            required
+            disabled={isLoadingCities}
+          />
+          
+          <Select
+            label="Район"
+            options={districts}
+            value={formData.district}
+            onChange={(e) => handleSelectChange('district', e.target.value)}
+            required
+            disabled={!formData.city || isLoadingDistricts}
+          />
+          
+          <Select
+            label="Жилой комплекс"
+            options={residentialComplexes}
+            value={formData.residential_complex}
+            onChange={(e) => handleSelectChange('residential_complex', e.target.value)}
+            required
+            disabled={!formData.district || isLoadingComplexes}
+          />
+          
+          <Select
+            label="Тип дома"
+            options={houseTypes}
+            value={formData.house_type}
+            onChange={(e) => handleSelectChange('house_type', e.target.value)}
+            required
+          />
+          
+          <Select
+            label="Состояние"
+            options={conditions}
+            value={formData.condition}
+            onChange={(e) => handleSelectChange('condition', e.target.value)}
+            required
+          />
+          
+          <Select
+            label="Санузел"
+            options={bathrooms}
+            value={formData.bathroom}
+            onChange={(e) => handleSelectChange('bathroom', e.target.value)}
+            required
+          />
+        </div>
         
-        <NumberInput
-          label="Количество комнат"
-          value={formData.rooms}
-          onChange={(value) => handleNumberChange('rooms', value)}
-          min={0}
-          max={20}
-          step={1}
-          placeholder="Например, 3"
-          required
-        />
-        
-        <Select
-          label="Район"
-          options={districts}
-          value={formData.district}
-          onChange={(e) => handleSelectChange('district', e.target.value)}
-          required
-          disabled={!formData.city || isLoadingDistricts}
-        />
-        
-        <NumberInput
-          label="Площадь, м²"
-          value={formData.area}
-          onChange={(value) => handleNumberChange('area', value)}
-          min={0}
-          max={1000}
-          step={0.1}
-          stepPrecision={1}
-          placeholder="Например, 75.5"
-          required
-        />
-        
-        <Select
-          label="Жилой комплекс"
-          options={residentialComplexes}
-          value={formData.residential_complex}
-          onChange={(e) => handleSelectChange('residential_complex', e.target.value)}
-          required
-          disabled={!formData.district || isLoadingComplexes}
-        />
-
-        <NumberInput
-          label="Этажность дома"
-          value={formData.total_floors}
-          onChange={(value) => handleNumberChange('total_floors', value)}
-          min={1}
-          max={50}
-          step={1}
-          placeholder="Например, 16"
-          required
-        />
-        
-        <Select
-          label="Тип дома"
-          options={houseTypes}
-          value={formData.house_type}
-          onChange={(e) => handleSelectChange('house_type', e.target.value)}
-          required
-        />
-        
-        <NumberInput
-          label="Этаж"
-          value={formData.floor}
-          onChange={(value) => handleNumberChange('floor', value)}
-          min={1}
-          max={formData.total_floors || 100}
-          step={1}
-          placeholder="Например, 5"
-          required
-        />
-        
-        <Select
-          label="Состояние"
-          options={conditions}
-          value={formData.condition}
-          onChange={(e) => handleSelectChange('condition', e.target.value)}
-          required
-        />
-        
-        <NumberInput
-          label="Высота потолков, м"
-          value={formData.ceiling_height}
-          onChange={(value) => handleNumberChange('ceiling_height', value)}
-          min={1}
-          max={5}
-          step={0.1}
-          stepPrecision={1}
-          placeholder="Например, 3.0"
-          required
-        />
-        
-        <Select
-          label="Санузел"
-          options={bathrooms}
-          value={formData.bathroom}
-          onChange={(e) => handleSelectChange('bathroom', e.target.value)}
-          required
-        />
-        
-        <NumberInput
-          label="Год постройки"
-          value={formData.year_built}
-          onChange={(value) => handleNumberChange('year_built', value)}
-          min={1500}
-          max={2026}
-          step={1}
-          placeholder="Например, 2020"
-          required
-        />
+        {/* Правая колонка - Числовые поля */}
+        <div className="form-right-column">
+          <NumberInput
+            label="Количество комнат"
+            value={formData.rooms}
+            onChange={(value) => handleNumberChange('rooms', value)}
+            min={1}
+            max={20}
+            step={1}
+            placeholder="Например, 3"
+            required
+          />
+          
+          <NumberInput
+            label="Площадь, м²"
+            value={formData.area}
+            onChange={(value) => handleNumberChange('area', value)}
+            min={0.1}
+            max={1000}
+            step={0.1}
+            stepPrecision={1}
+            placeholder="Например, 75.5"
+            required
+          />
+          
+          <NumberInput
+            label="Этаж"
+            value={formData.floor}
+            onChange={(value) => handleNumberChange('floor', value)}
+            min={1}
+            max={formData.total_floors || 100}
+            step={1}
+            placeholder="Например, 5"
+            required
+          />
+          
+          <NumberInput
+            label="Этажность дома"
+            value={formData.total_floors}
+            onChange={(value) => handleNumberChange('total_floors', value)}
+            min={1}
+            max={50}
+            step={1}
+            placeholder="Например, 16"
+            required
+          />
+          
+          <NumberInput
+            label="Высота потолков, м"
+            value={formData.ceiling_height}
+            onChange={(value) => handleNumberChange('ceiling_height', value)}
+            min={1}
+            max={5}
+            step={0.1}
+            stepPrecision={1}
+            placeholder="Например, 3.0"
+            required
+          />
+          
+          <NumberInput
+            label="Год постройки"
+            value={formData.year_built}
+            onChange={(value) => handleNumberChange('year_built', value)}
+            min={1500}
+            max={2026}
+            step={1}
+            placeholder="Например, 2020"
+            required
+          />
+        </div>
       </div>
       
       <button type="submit" className="submit-btn" disabled={isLoading}>
